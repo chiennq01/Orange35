@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<body>
+    <referenceContainer name="content">
+        <block class="Orange35\ImageSwitcher\Block\Product\View\MediaGallery"
+                name="orange35.imageswitcher.product.view.mediagallery"
+                template="Orange35_ImageSwitcher::product/view/mediagallery.phtml"
+                after="-"
+        />
+    </referenceContainer>
+</body>

@@ -1,0 +1,70 @@
+<div>
+    <div if="hasData()">
+        <table class="admin__dynamic-rows admin__control-table" data-role="grid" attr="{'data-index': index}">
+            <thead>
+                <tr data-bind="foreach: { data: optionsOrder(), as: 'optionId' }">
+                    <th ifnot="$parent.optionsLabels().options[optionId] == 'Images' ||
+                               $parent.optionsLabels().options[optionId] == 'Actions'"
+                        data-bind="text: $parent.optionsLabels().options[optionId]"></th>
+                    <th if="$parent.optionsLabels().options[optionId] == 'Images'">
+                        <div data-bind="text: 'Images'"></div>
+                    </th>
+                    <th if="$parent.optionsLabels().options[optionId] == 'Actions'">
+                        <div data-bind="text: $parent.optionsLabels().options[optionId]"></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: { data: rows(), as: 'row' }">
+                <tr data-bind="foreach: { data: $parent.optionsOrder(), as: 'optionId' }">
+                    <td if="optionId != 'Images' &&
+                            optionId != 'Actions' &&
+                            row.values[optionId] != '--Not Selected--' &&
+                            row.values[optionId] != '%all%' &&
+                            row.values[optionId].constructor !== Array"
+                        data-bind="text: $parents[1].optionsLabels().values[row.values[optionId]]"></td>
+                    <td if="optionId != 'Images' &&
+                            optionId != 'Actions' &&
+                            row.values[optionId] != '--Not Selected--' &&
+                            row.values[optionId] != '%all%' &&
+                            row.values[optionId].constructor === Array">
+                        <div data-bind="foreach: {data: row.values[optionId], as: 'value' }">
+                            <div data-bind="text: $parents[2].optionsLabels().values[$data]"></div>
+                        </div>
+                    </td>
+                    <td if="optionId != 'Images' &&
+                            optionId != 'Actions' &&
+                            row.values[optionId] != '--Not Selected--' &&
+                            row.values[optionId] == '%all%' &&
+                            row.values[optionId].constructor !== Array">
+                        <div data-bind="text: 'ALL VALUES'"></div>
+                    </td>
+                    <td if="optionId != 'Images' &&
+                            optionId != 'Actions' &&
+                            row.values[optionId] == '--Not Selected--' &&
+                            row.values[optionId] != 'ALL VALUES' &&
+                            row.values[optionId].constructor !== Array"
+                        data-bind="text: row.values[optionId]"></td>
+                    <td if="optionId == 'Images' && optionId != 'Actions'" data-bind="foreach: {data: row.imagesId}">
+                            <img style="width:100px; height:100px;" data-bind="attr: { src: $parents[2].images[$data]}">
+                    </td>
+                    <td if="optionId != 'Images' && optionId == 'Actions'">
+                        <input type="hidden"
+                               data-bind='attr: {value: row.jsonFormat, name: "custom_options_matches["+ $parentContext.$index() +"]"}'
+                               data-form-part="product_form">
+                        <a class="delete" title="Delete" href="#" onclick="return false;"
+                           data-bind="attr: { value: $parentContext.$index() }, click: $parents[1].processDeleteMatch.bind($parents[1])">Delete</a>
+                        <br />
+                        <a class="edit" title="Edit this combination" href="#" onclick="return false;"
+                           data-bind="attr: { value: $parentContext.$index() }, click: $parents[1].processEditMatch.bind($parents[1])">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ifnot="hasData()">
+        <div data-bind="text: noMatchesMessage"></div>
+        <input type="hidden"
+               data-bind='attr: {value: "empty", name: "custom_options_matches"}'
+               data-form-part="product_form">
+    </div>
+</div>
