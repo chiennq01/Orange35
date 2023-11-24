@@ -19,6 +19,11 @@ class Merger
     private $quality = 100;
     private $backgroundColor = [255, 255, 255];
 
+    /**
+     * @var FileIo
+     */
+    private $fileIo;
+
     public function __construct(
         ImageFactory $imageFactory,
         ConfigHelper $configHelper,

@@ -51,8 +51,8 @@ define([
         onShow: (function () {
           this.element.ColorPickerSetColor(this.getHexColor());
         }).bind(this),
-        onSubmit: (function (hsb, hex) {
-          this.element.ColorPickerHide().val('#' + hex).trigger('change');
+          onChange: (function (hsb, hex) {
+          this.element.val('#' + hex).trigger('change');
         }).bind(this)
       }).ColorPickerShow();
     }

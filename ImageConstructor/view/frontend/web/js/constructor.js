@@ -136,14 +136,16 @@ define([
         + '/image/' + this.mainImage.id
         + '/layers/' + layerIds.join('-');
 
-      $.get({
-        url: url,
-        dataType: 'json'
-      }).success((function (response) {
-        this.mergedImages[key] = response.image;
-        df.resolve(this.mergedImages[key]);
-        this.hideProgress();
-      }).bind(this));
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+        }).done(function (data) {
+            let self = this;
+            self.mergedImages[key] = data.image;
+            df.resolve(self.mergedImages[key]);
+            this.hideProgress();
+        }.bind(this));
       return df;
     },
 
