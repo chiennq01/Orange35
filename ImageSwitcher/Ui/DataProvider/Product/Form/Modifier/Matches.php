@@ -83,6 +83,11 @@ class Matches extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Abs
     protected $optionsHelper; // @codingStandardsIgnoreLine
 
     /**
+     * @var array
+     */
+    protected $meta;
+
+    /**
      * Matches constructor.
      * @param \Magento\Catalog\Model\Locator\LocatorInterface $locator
      * @param UrlInterface $urlBuilder

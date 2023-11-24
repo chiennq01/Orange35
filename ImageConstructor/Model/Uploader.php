@@ -60,36 +60,6 @@ class Uploader
     private $allowedExtensions;
 
     /**
-     * Uploader constructor.
-     * @param Database $coreFileStorageDatabase
-     * @param Filesystem $filesystem
-     * @param UploaderFactory $uploaderFactory
-     * @param StoreManagerInterface $storeManager
-     * @param LoggerInterface $logger
-     * @param array $allowedExtensions
-     * @param HelperImage $helper
-     * @throws \Magento\Framework\Exception\FileSystemException
-     */
-
-    public function __construct(
-        Database $coreFileStorageDatabase,
-        Filesystem $filesystem,
-        UploaderFactory $uploaderFactory,
-        StoreManagerInterface $storeManager,
-        LoggerInterface $logger,
-        $allowedExtensions = [],
-        HelperImage $helper
-    ) {
-        $this->coreFileStorageDatabase  = $coreFileStorageDatabase;
-        $this->mediaDirectory           = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
-        $this->uploaderFactory          = $uploaderFactory;
-        $this->storeManager             = $storeManager;
-        $this->logger                   = $logger;
-        $this->allowedExtensions        = $allowedExtensions;
-        $this->helper                   = $helper;
-    }
-
-    /**
      * Set allowed extensions
      *
      * @param string[] $allowedExtensions
@@ -147,6 +117,36 @@ class Uploader
     }
 
     /**
+     * Uploader constructor.
+     * @param Database $coreFileStorageDatabase
+     * @param Filesystem $filesystem
+     * @param UploaderFactory $uploaderFactory
+     * @param StoreManagerInterface $storeManager
+     * @param LoggerInterface $logger
+     * @param HelperImage $helper
+     * @param array $allowedExtensions
+     * @throws \Magento\Framework\Exception\FileSystemException
+     */
+
+    public function __construct(
+        Database $coreFileStorageDatabase,
+        Filesystem $filesystem,
+        UploaderFactory $uploaderFactory,
+        StoreManagerInterface $storeManager,
+        LoggerInterface $logger,
+        HelperImage $helper,
+        $allowedExtensions = []
+    ) {
+        $this->coreFileStorageDatabase  = $coreFileStorageDatabase;
+        $this->mediaDirectory           = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
+        $this->uploaderFactory          = $uploaderFactory;
+        $this->storeManager             = $storeManager;
+        $this->logger                   = $logger;
+        $this->allowedExtensions        = $allowedExtensions;
+        $this->helper                   = $helper;
+    }
+
+    /**
      * Checking file for save and save it to tmp dir
      *
      * @param string $fileId
@@ -189,7 +189,6 @@ class Uploader
                 );
             }
         }
-
         return $result;
     }
 
